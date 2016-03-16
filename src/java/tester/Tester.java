@@ -22,7 +22,7 @@ import javax.persistence.Persistence;
  */
 public class Tester {
 
-    static String[] fullname = makePerson().split(",");
+    static String[] fullname;
     //static String[] street = makeStreet().split(",");
 
     public static void main(String[] args) {
@@ -43,6 +43,7 @@ public class Tester {
                 i++) {
 
             Person p = new Person();
+            fullname = makePerson().split(",");
             p.setFirstName(fullname[0]);
             p.setLastName(fullname[1]);
 
