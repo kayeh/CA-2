@@ -7,11 +7,13 @@ package tester;
 
 import static DataGenerator.DataGenerator.makeAddInfo;
 import static DataGenerator.DataGenerator.makePerson;
+import static DataGenerator.DataGenerator.makePhone;
 import static DataGenerator.DataGenerator.makeStreet;
 import entity.Address;
 import entity.CityInfo;
 import entity.InfoEntity;
 import entity.Person;
+import entity.Phone;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -23,15 +25,18 @@ import javax.persistence.Persistence;
 public class Tester {
 
     static String[] fullname;
+    static String[] phone;
     //static String[] street = makeStreet().split(",");
 
     public static void main(String[] args) {
 
         // Persistence.generateSchema("CA2_Eske_JoniPU", null);
-        //test data
-        System.out.println(fullname[0] + " " + fullname[1]);
-        System.out.println(makeStreet());
-        System.out.println(makeAddInfo());
+        
+        //fullname = makePerson().split(",");
+        //System.out.println(fullname[0] + " " + fullname[1]);
+        //System.out.println(makeStreet());
+        // System.out.println(makeAddInfo());
+        
 
     }
 
@@ -51,6 +56,11 @@ public class Tester {
             a.setStreet(makeStreet());
             a.setAdditionalInfo(makeAddInfo());
 
+            Phone ph = new Phone();
+           phone = makePhone().split(",");
+            ph.setNumber(phone[0]);
+            ph.setDescription(phone[1]);
+            
             CityInfo ci = new CityInfo();
             ci.setCity("Lyngby");
             ci.setZipCode("2100");
@@ -60,6 +70,8 @@ public class Tester {
                 p.setAddress(a);
                 em.persist(a);
                 em.persist(ci);
+                em.persist(ph);
+                ph.setInfoEntity(p);
                 a.setCityInfo(ci);
                 em.getTransaction().commit();
             } catch (Exception e) {
