@@ -42,33 +42,32 @@ public class Tester {
         //System.out.println(fullname[0] + " " + fullname[1]);
         //System.out.println(makeStreet());
         // System.out.println(makeAddInfo());
-        Insert2Database(20);
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2_Eske_JoniPU");
-//        EntityManager em = emf.createEntityManager();
-//        DataFacade facade = new DataFacade(emf);
-//       // System.out.println(df.getAllPersons());
-//        List<Person> persons = facade.getAllPersons();
-//        JsonArray json = new JsonArray();
-//       
-//        System.out.println("START");
-//        for (Person person : persons) {
-//            JsonObject obj = new JsonObject();
-//             JsonArray hobbies = new JsonArray();
-//             for (int i = 0; i < person.getHobbies().size(); i++) {
-//                Hobby h = person.getHobbies().get(i); 
-//                hobbies.add(h.getName());
-//              //   System.out.println(hobbies);
-//            }
-//            System.out.println("END");
-//            obj.addProperty("firstName", person.getFirstName());
-//            obj.addProperty("lastName", person.getLastName());
-//            obj.addProperty("street", person.getAddress().toString());
-//            obj.add("hobbies", hobbies);
-//            json.add(obj);
-//        }
-//        System.out.println(json);
-//
-//    
+      //  Insert2Database(20);
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2_Eske_JoniPU");
+        EntityManager em = emf.createEntityManager();
+        DataFacade facade = new DataFacade(emf);
+       // System.out.println(df.getAllPersons());
+        List<Person> persons = facade.getAllPersons();
+        JsonArray json = new JsonArray();
+       
+        System.out.println("START");
+        for (Person person : persons) {
+            JsonObject obj = new JsonObject();
+             JsonArray hobbies = new JsonArray();
+             for (int i = 0; i < person.getHobbies().size(); i++) {
+                Hobby h = person.getHobbies().get(i); 
+                hobbies.add(h.getName());
+              //   System.out.println(hobbies);
+            }
+            obj.addProperty("firstName", person.getFirstName());
+            obj.addProperty("lastName", person.getLastName());
+            obj.addProperty("street", person.getAddress().toString());
+            obj.add("hobbies", hobbies);
+            json.add(obj);
+        }
+        System.out.println(json);
+
+    
    }
 
     public static void Insert2Database(int dataAmount) {

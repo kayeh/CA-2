@@ -10,6 +10,7 @@ import entity.Address;
 import entity.CityInfo;
 import entity.Company;
 import entity.Hobby;
+import entity.InfoEntity;
 import entity.Person;
 import entity.Phone;
 import javax.persistence.EntityManager;
@@ -24,17 +25,15 @@ public class Tester2 {
     static String[] company;
 
     public static void main(String[] args) {
-       // createSchema();
-        insert2Database(1000);
+      createSchema();
+        insert2Database(50);
         //printTestData(1);
     }
 
     public static void insert2Database(int dataAmount) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2_Eske_JoniPU");
         EntityManager em = emf.createEntityManager();
-        for (int i = 0;
-                i < dataAmount;
-                i++) {
+        for (int i = 0;i < dataAmount;i++) {
 
             Person p = new Person();
             fullname = makePerson().split(",");
@@ -44,7 +43,8 @@ public class Tester2 {
             Address a = new Address();
             a.setStreet(makeStreet());
             a.setAdditionalInfo(makeAddInfo());
-
+           
+            
             Phone ph = new Phone();
             phone = makePhone().split(",");
             ph.setNumber(phone[0]);
@@ -66,22 +66,18 @@ public class Tester2 {
             CityInfo ci = new CityInfo();
             ci.setCity("Lyngby");
             ci.setZipCode("2100");
+            
+                InfoEntity ie = new InfoEntity();
+                p.addHobby(h);
+                 p.setAddress(a);
+                a.setCityInfo(ci);
+                p.addPhone(ph);
+                ph.setInfoEntity(p);
             try {
                 em.getTransaction().begin();
                 em.persist(p);
-                p.setAddress(a);
-
-                em.persist(a);
-                em.persist(ci);
-                em.persist(ph);
-                em.persist(h);
-                em.persist(com);
-
-                ph.setInfoEntity(p);
-                h.setPerson(p);
-                com.setAddress(a);
-                a.setCityInfo(ci);
-
+              //  em.persist(com);
+                        
                 em.getTransaction().commit();
             } catch (Exception e) {
                 e.printStackTrace();

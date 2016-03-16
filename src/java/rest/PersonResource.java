@@ -11,6 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import entity.Hobby;
 import entity.Person;
+import entity.Phone;
 import facade.DataFacade;
 import java.util.List;
 import javax.persistence.Persistence;
@@ -73,9 +74,15 @@ public class PersonResource {
                 Hobby h = person.getHobbies().get(i); 
                 hobbies.add(h.getName());
             }
+                          JsonArray phones = new JsonArray();
+             for (int i = 0; i < person.getPhone().size(); i++) {
+                Phone ph = person.getPhone().get(i); 
+                phones.add(ph.getNumber());
+            }
             obj.addProperty("firstName", person.getFirstName());
             obj.addProperty("lastName", person.getLastName());
             obj.addProperty("street", person.getAddress().toString());
+            obj.add("phones", phones);
             obj.add("hobbies", hobbies);
             json.add(obj);
         }
