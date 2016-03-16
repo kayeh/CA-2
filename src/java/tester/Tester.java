@@ -6,12 +6,14 @@
 package tester;
 
 import static DataGenerator.DataGenerator.makeAddInfo;
+import static DataGenerator.DataGenerator.makeCompany;
 import static DataGenerator.DataGenerator.makeHobby;
 import static DataGenerator.DataGenerator.makePerson;
 import static DataGenerator.DataGenerator.makePhone;
 import static DataGenerator.DataGenerator.makeStreet;
 import entity.Address;
 import entity.CityInfo;
+import entity.Company;
 import entity.Hobby;
 import entity.Person;
 import entity.Phone;
@@ -24,11 +26,12 @@ public class Tester {
     static String[] fullname;
     static String[] phone;
     static String[] hobby;
+    static String[] company;
 
     public static void main(String[] args) {
  
-     insert2Database(1);
-     //printTest(5);
+     //insert2Database(10);
+     printTestData(1);
     }
 
     public static void insert2Database(int dataAmount) {
@@ -56,6 +59,14 @@ public class Tester {
             hobby = makeHobby().split("-");
             h.setName(hobby[0]);
             h.setDescription(hobby[1]);
+            
+            Company com = new Company();
+            company = makeCompany().split("¨");
+            com.setName(company[0]);
+            com.setDescription(company[1]);
+            com.setCvr(company[2]);
+            com.setNumEmployees(Integer.parseInt(company[3]));
+            com.setMarketValue(Integer.parseInt(company[4]));
             
 
             CityInfo ci = new CityInfo();
@@ -86,7 +97,7 @@ public class Tester {
         }
     }
 
-    public static void printTest(int n) {
+    public static void printTestData(int n) {
 
         for (int i = 1; i < n+1; i++) {
             System.out.println("Person: "+ i);
@@ -102,6 +113,11 @@ public class Tester {
             hobby = makeHobby().split("-");
             System.out.println(hobby[0] + " " + hobby[1]);
             System.out.println("\n" + "\n");
+            
+            company = makeCompany().split("¨");
+            System.out.println(company[0] + " " + company[1] +" " +  company[2] + " " + company[3] + company[4]);
+            
+            
 
         }
 
