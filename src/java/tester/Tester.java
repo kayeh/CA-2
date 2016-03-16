@@ -29,9 +29,9 @@ public class Tester {
     static String[] company;
 
     public static void main(String[] args) {
- 
-     //insert2Database(10);
-     printTestData(1);
+        createSchema();
+        insert2Database(10);
+        //printTestData(1);
     }
 
     public static void insert2Database(int dataAmount) {
@@ -54,12 +54,12 @@ public class Tester {
             phone = makePhone().split(",");
             ph.setNumber(phone[0]);
             ph.setDescription(phone[1]);
-            
+
             Hobby h = new Hobby();
             hobby = makeHobby().split("-");
             h.setName(hobby[0]);
             h.setDescription(hobby[1]);
-            
+
             Company com = new Company();
             company = makeCompany().split("¨");
             com.setName(company[0]);
@@ -67,7 +67,6 @@ public class Tester {
             com.setCvr(company[2]);
             com.setNumEmployees(Integer.parseInt(company[3]));
             com.setMarketValue(Integer.parseInt(company[4]));
-            
 
             CityInfo ci = new CityInfo();
             ci.setCity("Lyngby");
@@ -76,19 +75,18 @@ public class Tester {
                 em.getTransaction().begin();
                 em.persist(p);
                 p.setAddress(a);
-                
+
                 em.persist(a);
                 em.persist(ci);
                 em.persist(ph);
                 em.persist(h);
-                
+                em.persist(com);
+
                 ph.setInfoEntity(p);
                 h.setPerson(p);
-                
-                
-                
-                
+                com.setAddress(a);
                 a.setCityInfo(ci);
+
                 em.getTransaction().commit();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -99,8 +97,8 @@ public class Tester {
 
     public static void printTestData(int n) {
 
-        for (int i = 1; i < n+1; i++) {
-            System.out.println("Person: "+ i);
+        for (int i = 1; i < n + 1; i++) {
+            System.out.println("Person: " + i);
             fullname = makePerson().split(",");
             System.out.println(fullname[0] + " " + fullname[1]);
 
@@ -113,17 +111,15 @@ public class Tester {
             hobby = makeHobby().split("-");
             System.out.println(hobby[0] + " " + hobby[1]);
             System.out.println("\n" + "\n");
-            
+
             company = makeCompany().split("¨");
-            System.out.println(company[0] + " " + company[1] +" " +  company[2] + " " + company[3] + company[4]);
-            
-            
+            System.out.println(company[0] + " " + company[1] + " " + company[2] + " " + company[3] + company[4]);
 
         }
 
     }
 
     public static void createSchema() {
-       Persistence.generateSchema("CA2_Eske_JoniPU", null);
+        Persistence.generateSchema("CA2_Eske_JoniPU", null);
     }
 }
