@@ -14,8 +14,8 @@ import java.util.List;
  */
 public interface IDataFacade {
     
-    public Person getPerson(int id);
-    public List<Person> getPersons();
-    public List<Person> getPersons(int zipCode);
+    public Person getPerson(long id);
+    public List<Person> getAllPersons();
+    public List<Person> getPersonsByZip(int zipCode);
     
 }

@@ -99,7 +99,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Address[ id=" + id + " ]";
+        return street + " " + additionalInfo;
     }
     
 }

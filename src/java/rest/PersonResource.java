@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import entity.Hobby;
 import entity.Person;
 import facade.DataFacade;
 import java.util.List;
@@ -20,6 +21,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -57,20 +59,43 @@ public class PersonResource {
     }
 
     @GET
-    @Path("/{complete}")
+    @Path("/complete")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersons() {
         List<Person> persons = facade.getAllPersons();
         JsonArray json = new JsonArray();
-        
-        // return gson.toJson();
+       
+
         for (Person person : persons) {
             JsonObject obj = new JsonObject();
+             JsonArray hobbies = new JsonArray();
+             for (int i = 0; i < person.getHobbies().size(); i++) {
+                Hobby h = person.getHobbies().get(i); 
+                hobbies.add(h.getName());
+            }
             obj.addProperty("firstName", person.getFirstName());
+            obj.addProperty("lastName", person.getLastName());
+            obj.addProperty("street", person.getAddress().toString());
+            obj.add("hobbies", hobbies);
             json.add(obj);
         }
         return gson.toJson(json);
-        // throw new UnsupportedOperationException();
+    }
+
+    @GET
+    @Path("/complete/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonById(@PathParam("id") int id) {
+        Person person = facade.getPerson(id);
+        JsonArray json = new JsonArray();
+
+        JsonObject obj = new JsonObject();
+        obj.addProperty("firstName", person.getFirstName());
+        obj.addProperty("lastName", person.getLastName());
+        json.add(obj);
+
+        return gson.toJson(json);
+        //  throw new UnsupportedOperationException();
     }
 
     /**

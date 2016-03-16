@@ -6,35 +6,72 @@
 package tester;
 
 import static DataGenerator.DataGenerator.makeAddInfo;
-import static DataGenerator.DataGenerator.makeCompany;
-import static DataGenerator.DataGenerator.makeHobby;
 import static DataGenerator.DataGenerator.makePerson;
 import static DataGenerator.DataGenerator.makePhone;
 import static DataGenerator.DataGenerator.makeStreet;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import entity.Address;
 import entity.CityInfo;
-import entity.Company;
 import entity.Hobby;
+import entity.InfoEntity;
 import entity.Person;
 import entity.Phone;
+import facade.DataFacade;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
+/**
+ *
+ * @author Eske Wolff
+ */
 public class Tester {
 
     static String[] fullname;
     static String[] phone;
-    static String[] hobby;
-    static String[] company;
+    //static String[] street = makeStreet().split(",");
 
     public static void main(String[] args) {
-        createSchema();
-        insert2Database(10);
-        //printTestData(1);
-    }
 
-    public static void insert2Database(int dataAmount) {
+        // Persistence.generateSchema("CA2_Eske_JoniPU", null);
+        
+        //fullname = makePerson().split(",");
+        //System.out.println(fullname[0] + " " + fullname[1]);
+        //System.out.println(makeStreet());
+        // System.out.println(makeAddInfo());
+        Insert2Database(20);
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2_Eske_JoniPU");
+//        EntityManager em = emf.createEntityManager();
+//        DataFacade facade = new DataFacade(emf);
+//       // System.out.println(df.getAllPersons());
+//        List<Person> persons = facade.getAllPersons();
+//        JsonArray json = new JsonArray();
+//       
+//        System.out.println("START");
+//        for (Person person : persons) {
+//            JsonObject obj = new JsonObject();
+//             JsonArray hobbies = new JsonArray();
+//             for (int i = 0; i < person.getHobbies().size(); i++) {
+//                Hobby h = person.getHobbies().get(i); 
+//                hobbies.add(h.getName());
+//              //   System.out.println(hobbies);
+//            }
+//            System.out.println("END");
+//            obj.addProperty("firstName", person.getFirstName());
+//            obj.addProperty("lastName", person.getLastName());
+//            obj.addProperty("street", person.getAddress().toString());
+//            obj.add("hobbies", hobbies);
+//            json.add(obj);
+//        }
+//        System.out.println(json);
+//
+//    
+   }
+
+    public static void Insert2Database(int dataAmount) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2_Eske_JoniPU");
         EntityManager em = emf.createEntityManager();
         for (int i = 0;
@@ -51,23 +88,10 @@ public class Tester {
             a.setAdditionalInfo(makeAddInfo());
 
             Phone ph = new Phone();
-            phone = makePhone().split(",");
+           phone = makePhone().split(",");
             ph.setNumber(phone[0]);
             ph.setDescription(phone[1]);
-
-            Hobby h = new Hobby();
-            hobby = makeHobby().split("-");
-            h.setName(hobby[0]);
-            h.setDescription(hobby[1]);
-
-            Company com = new Company();
-            company = makeCompany().split("¨");
-            com.setName(company[0]);
-            com.setDescription(company[1]);
-            com.setCvr(company[2]);
-            com.setNumEmployees(Integer.parseInt(company[3]));
-            com.setMarketValue(Integer.parseInt(company[4]));
-
+            
             CityInfo ci = new CityInfo();
             ci.setCity("Lyngby");
             ci.setZipCode("2100");
@@ -75,51 +99,16 @@ public class Tester {
                 em.getTransaction().begin();
                 em.persist(p);
                 p.setAddress(a);
-
                 em.persist(a);
                 em.persist(ci);
                 em.persist(ph);
-                em.persist(h);
-                em.persist(com);
-
                 ph.setInfoEntity(p);
-                h.setPerson(p);
-                com.setAddress(a);
                 a.setCityInfo(ci);
-
                 em.getTransaction().commit();
             } catch (Exception e) {
                 e.printStackTrace();
 
             }
         }
-    }
-
-    public static void printTestData(int n) {
-
-        for (int i = 1; i < n + 1; i++) {
-            System.out.println("Person: " + i);
-            fullname = makePerson().split(",");
-            System.out.println(fullname[0] + " " + fullname[1]);
-
-            System.out.println(makeAddInfo());
-            System.out.println(makeStreet());
-
-            phone = makePhone().split(",");
-            System.out.println(phone[0] + " " + phone[1]);
-
-            hobby = makeHobby().split("-");
-            System.out.println(hobby[0] + " " + hobby[1]);
-            System.out.println("\n" + "\n");
-
-            company = makeCompany().split("¨");
-            System.out.println(company[0] + " " + company[1] + " " + company[2] + " " + company[3] + company[4]);
-
-        }
-
-    }
-
-    public static void createSchema() {
-        Persistence.generateSchema("CA2_Eske_JoniPU", null);
     }
 }

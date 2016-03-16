@@ -24,7 +24,7 @@ public class Person extends InfoEntity implements Serializable {
 
    
     @ManyToMany
-    private List<Hobby> hobby = new ArrayList();
+    private List<Hobby> hobbies = new ArrayList();
 
     public String getFirstName() {
         return firstName;
@@ -42,12 +42,12 @@ public class Person extends InfoEntity implements Serializable {
         this.lastName = lastName;
     }
 
-    public List<Hobby> getHobby() {
-        return hobby;
+    public List<Hobby> getHobbies() {
+        return hobbies;
     }
 
-    public void setHobby(Hobby newHobby) {
-        this.hobby.add(newHobby); 
+    public void setHobbies(Hobby hobbies) {
+        this.hobbies.add(hobbies);
     }
     
     
