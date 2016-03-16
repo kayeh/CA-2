@@ -5,6 +5,9 @@
  */
 package tester;
 
+import static DataGenerator.DataGenerator.makeAddInfo;
+import static DataGenerator.DataGenerator.makePerson;
+import static DataGenerator.DataGenerator.makeStreet;
 import entity.Address;
 import entity.CityInfo;
 import entity.InfoEntity;
@@ -19,34 +22,49 @@ import javax.persistence.Persistence;
  */
 public class Tester {
 
+    static String[] fullname = makePerson().split(",");
+    //static String[] street = makeStreet().split(",");
+
     public static void main(String[] args) {
 
         // Persistence.generateSchema("CA2_Eske_JoniPU", null);
+        //test data
+        System.out.println(fullname[0] + " " + fullname[1]);
+        System.out.println(makeStreet());
+        System.out.println(makeAddInfo());
+
+    }
+
+    public static void Insert2Database(int dataAmount) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2_Eske_JoniPU");
         EntityManager em = emf.createEntityManager();
+        for (int i = 0;
+                i < dataAmount;
+                i++) {
 
-        Person p = new Person();
-        p.setFirstName("Kim");
-        p.setLastName("Hansen");
+            Person p = new Person();
+            p.setFirstName(fullname[0]);
+            p.setLastName(fullname[1]);
 
-        Address a = new Address();
-        a.setStreet("Lyngbyvej 30");
-        a.setAdditionalInfo("tv");
-        
-        CityInfo ci = new CityInfo();
-        ci.setCity("Lyngby");
-        ci.setZipCode("2100");
-        try {
-            em.getTransaction().begin();
-            em.persist(p);
-            p.setAddress(a);
-            em.persist(a);
-            em.persist(ci);
-            a.setCityInfo(ci);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
+            Address a = new Address();
+            a.setStreet(makeStreet());
+            a.setAdditionalInfo(makeAddInfo());
+
+            CityInfo ci = new CityInfo();
+            ci.setCity("Lyngby");
+            ci.setZipCode("2100");
+            try {
+                em.getTransaction().begin();
+                em.persist(p);
+                p.setAddress(a);
+                em.persist(a);
+                em.persist(ci);
+                a.setCityInfo(ci);
+                em.getTransaction().commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
         }
-
     }
 }
