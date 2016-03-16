@@ -62,8 +62,8 @@ public class Hobby implements Serializable {
         return person;
     }
 
-    public void setPerson(List<Person> person) {
-        this.person = person;
+    public void setPerson(Person person) {
+        this.person.add(person);
     }
     
 

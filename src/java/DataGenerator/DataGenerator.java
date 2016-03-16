@@ -8,13 +8,15 @@ public class DataGenerator {
     
     // Prefix & Affix to generate the random Strings
     static String[] lastnames = {"hansen", "jonsen", "olsen", "jonsen", "carlsen", "larsen", "simonsen", "ditlevsen", "graabek", "bohn", "szigethy", "wolff", "morgentailer", "kjærsgaard", "Mayweather", "Boldsen", "McGregor", "Andreasen", "Larsson"};
-    static String[] maleNames = {"Alexander", "Alex", "andreas", "adrian", "axel", "august", "ali", "ahmed", "Bo", "bent", "carl", "emil", "eli", "eske", "fin", "finn", "frederik", "gert", "gunner", "Henrik", "henning", "hans", "hans-henrik", "Ingolf", "Jonathan", "Jonas", "Junes", "Jan", "Jarl"};
+    static String[] maleNames = {"Alexander", "Alex", "andreas", "adrian", "axel", "august", "ali", "ahmed", "Bo", "bent", "carl", "emil", "eli", "eske", "finn", "frederik", "gert", "gunner", "Henrik", "henning", "hans", "hans-henrik", "Ingolf", "Jonathan", "Jonas", "Junes", "Jan", "Jarl"};
     static String[] femaleNames = {"Andrea", "Alexandra", "Alex", "Birgitte", "Berit", "britt", "bea", "bente", "Carla", "Caroline", "Caio", "Emilie", "Emilia", "Eli", "Fiola", "Gerda", "gundbrit", "Heidi", "Ida", "Ida-Marie", "Josefine", "Julie", "karoline", "Klaudia", "Leila", "Maj-britt"};
     static String[] streetBegin = {"Sorte", "Hvide", "Grøne", "Orange", "Gule"};
     static String[] streetMid = {"fiol", "rose", "kælk", "sten", "skovl", "bjørn", "sol", "ræv", "fasan", "mose", "bule"};
     static String[] streetEnd = {"s Alle", "vej", "s Stræde", "gade", "s Torv"};
     static String[] estateType = {"hus", "tv.", "th."};
     static String[] phoneDescription = {"Hjemme", "Mobil", "Skype", "Arbejde"};
+    static String[] hobbyNames = {"Golf","Svømning","Fodbold","Håndbold","Gaming","Tennis","Robotter","Biler","Cykler","Fiskeri","Løb","Ski","Dans"};
+    static String[] hobbyDescriptions = {"golf, slå & gå","blop, blop & blop","Løb, spark & vind","Løb, kast & vind","klik, klik & klik","Smash, løb & smash","bip, biiip & biiiip","Tøf, tøf & VRRRRRRN","træd, træd & træd","Kast, vent & træk","løb, løb & løb","Frisk luft","Mit kat den danser tango, tango & tango"};
     
     //Variables for person
     private static int gender;
@@ -30,13 +32,22 @@ public class DataGenerator {
     private static int randomLastname;
     private static String streetName;
     
-
     //Variables for Phone
     private static String number;
     
     
+    //Variables for Hobby
+    private static String hobby;
+    
+    
+    public static String makeHobby(){
+        randomIndex = random.nextInt(hobbyNames.length);
+        hobby = hobbyNames[randomIndex] +"-" + hobbyDescriptions[randomIndex];
+        return hobby;
+    }
+    
     public static String makePhone(){
-        randomIndex = random.nextInt(99999998)+1;
+        randomIndex = random.nextInt(99999998)+10000001;
         number = Integer.toString(randomIndex);
         randomIndex = random.nextInt(phoneDescription.length);
         number += "," +phoneDescription[randomIndex];
