@@ -8,7 +8,9 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import entity.Hobby;
 import entity.Person;
 import entity.Phone;
@@ -65,20 +67,20 @@ public class PersonResource {
     public String getPersons() {
         List<Person> persons = facade.getAllPersons();
         JsonArray json = new JsonArray();
-       
 
         for (Person person : persons) {
             JsonObject obj = new JsonObject();
-             JsonArray hobbies = new JsonArray();
-             for (int i = 0; i < person.getHobbies().size(); i++) {
-                Hobby h = person.getHobbies().get(i); 
-                hobbies.add(h.getName());
+            JsonArray hobbies = new JsonArray();
+            for (int i = 0; i < person.getHobbies().size(); i++) {
+                Hobby h = person.getHobbies().get(i);
+                hobbies.add(new JsonPrimitive(h.getName()));
             }
-                          JsonArray phones = new JsonArray();
-             for (int i = 0; i < person.getPhone().size(); i++) {
-                Phone ph = person.getPhone().get(i); 
-                phones.add(ph.getNumber());
+            JsonArray phones = new JsonArray();
+            for (int i = 0; i < person.getPhone().size(); i++) {
+                Phone ph = person.getPhone().get(i);
+                phones.add(new JsonPrimitive(ph.getNumber()));
             }
+
             obj.addProperty("firstName", person.getFirstName());
             obj.addProperty("lastName", person.getLastName());
             obj.addProperty("street", person.getAddress().toString());

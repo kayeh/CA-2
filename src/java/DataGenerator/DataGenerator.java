@@ -10,9 +10,9 @@ public class DataGenerator {
     static String[] lastnames = {"hansen", "jonsen", "olsen", "jonsen", "carlsen", "larsen", "simonsen", "ditlevsen", "graabek", "bohn", "szigethy", "wolff", "morgentailer", "kjærsgaard", "Mayweather", "Boldsen", "McGregor", "Andreasen", "Larsson"};
     static String[] maleNames = {"Alexander", "Alex", "andreas", "adrian", "axel", "august", "ali", "ahmed", "Bo", "bent", "carl", "emil", "eli", "eske", "finn", "frederik", "gert", "gunner", "Henrik", "henning", "hans", "hans-henrik", "Ingolf", "Jonathan", "Jonas", "Junes", "Jan", "Jarl"};
     static String[] femaleNames = {"Andrea", "Alexandra", "Alex", "Birgitte", "Berit", "britt", "bea", "bente", "Carla", "Caroline", "Caio", "Emilie", "Emilia", "Eli", "Fiola", "Gerda", "gundbrit", "Heidi", "Ida", "Ida-Marie", "Josefine", "Julie", "karoline", "Klaudia", "Leila", "Maj-britt"};
-    static String[] streetBegin = {"Sorte", "Hvide", "Grøne", "Orange", "Gule"};
-    static String[] streetMid = {"fiol", "rose", "kælk", "sten", "skovl", "bjørn", "sol", "ræv", "fasan", "mose", "bule"};
-    static String[] streetEnd = {"s Alle", "vej", "s Stræde", "gade", "s Torv"};
+    static String[] streetBegin = {"Sorte", "Hvide", "Grøne", "Orange", "Gule", "Lille", "Store", "Sankt ", };
+    static String[] streetMid = {"fiol", "rose", "kælk", "sten", "skovl", "bjørn", "sol", "ræv", "fasan", "mose", "bule", "ko","kanin", "kat", "skald","Gekko","flue", "bue","kriger", "hamster"};
+    static String[] streetEnd = {"s Alle", "vej", "s Stræde", "gade", "s Torv", " Stiftelsen"};
     static String[] adressType = {"hus", "tv.", "th."};
     static String[] phoneDescription = {"Hjemme", "Mobil", "Skype", "Arbejde"};
     static String[] hobbyNames = {"Golf", "Svømning", "Fodbold", "Håndbold", "Gaming", "Tennis", "Robotter", "Biler", "Cykler", "Fiskeri", "Løb", "Ski", "Dans"};
@@ -22,6 +22,7 @@ public class DataGenerator {
             static String[] companyCvr = {"18296799", "13612870", "7418600000", "13674671", "28511345", "124151251", "16374573", "135345613", "425634622", "125643164"};
     static int[] companyNumEmployees = {100000,2000000,300000,400000,500000000,6000000,700000000,800000,900000000,1000000000};
     static int[] companyMarketValue = {1234,5678,9012,3456,7890,1234,5678,9012,3456,7890};
+    
 
     //Variables for person
     private static int gender;
@@ -44,6 +45,8 @@ public class DataGenerator {
     private static String hobby;
 //Company
     public static String company;
+    
+    
 
     public static String makeCompany() {
         randomIndex = random.nextInt(companyName.length);
@@ -119,7 +122,7 @@ public class DataGenerator {
 //        if (persons.indexOf(forename) == -1 && persons.indexOf(lastname) == -1) {
 //            persons.add("INSERT INTO PERSON VALUES (null,'" + forename + "'" + "," + "'" + lastname + "'" + ");");
 //        }
-        return forename + "," + lastname;
+        return forename + "," + lastname + "," + forename + "@" + lastname + ".dk";
 
     }
 
