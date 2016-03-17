@@ -1,10 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package facade;
 
+import entity.Address;
+import entity.CityInfo;
+import entity.Hobby;
+import entity.InfoEntity;
 import entity.Person;
 import entity.Phone;
 import java.util.List;
@@ -12,12 +11,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 
-/**
- *
- * @author Eske Wolff
- */
 public class DataFacade implements IDataFacade {
 
+    Person p = new Person();
+    InfoEntity ie = new InfoEntity();
+    Address a = new Address();
+    Phone ph = new Phone();
+    CityInfo ci = new CityInfo();
+    Hobby h = new Hobby();
     EntityManagerFactory emf;
 
     public DataFacade(EntityManagerFactory emf) {
@@ -41,7 +42,6 @@ public class DataFacade implements IDataFacade {
     }
 
     // select p, a, c from Person p join fetch p.address a join fetch a.cityInfo c
-    
     @Override
     public List<Person> getAllPersons() {
         EntityManager em = getEntityManager();
@@ -62,8 +62,40 @@ public class DataFacade implements IDataFacade {
         }
 
     }
-    
-    public Person createPerson(String firstname, String lastname, ){
+
+    public void createPerson(String fields) {
+
+        String inputs[] = fields.split(",");
+        EntityManager em = getEntityManager();
+
+        p.setFirstName(inputs[0]);
+        p.setLastName(inputs[1]);
+        p.setEmail(inputs[2]);
+        a.setStreet(inputs[3]);
+        a.setAdditionalInfo(inputs[4]);
+        ph.setNumber(inputs[5]);
+        ph.setDescription(inputs[6]);
+        ci.setCity(inputs[7]);
+        ci.setZipCode(inputs[8]);
+        h.setName(inputs[9]);
+        h.setDescription(inputs[10]);
+
+        p.setAddress(a);
+        a.setCityInfo(ci);
+        p.addHobby(h);
+        p.addPhone(ph);
+        ph.setInfoEntity(p);
         
+        try {
+            em.getTransaction().begin();
+            em.persist(p);
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
     }
+
 }

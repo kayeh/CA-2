@@ -17,6 +17,7 @@ public interface IDataFacade {
     public Person getPerson(long id);
     public List<Person> getAllPersons();
     public List<Person> getPersonsByZip(int zipCode);
+    public void createPerson(String fields);
     
     
 }
