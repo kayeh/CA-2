@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="CA2_Eske_JoniPU" transaction-type="RESOURCE_LOCAL">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>entity.Person</class>
-    <class>entity.Hobby</class>
-    <class>entity.Company</class>
-    <class>entity.Phone</class>
-    <class>entity.Address</class>
-    <class>entity.CityInfo</class>
-    <class>entity.InfoEntity</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ca2?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="aergvOCh2202"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="CA2_Eske_JoniPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>entity.Person</class>
+        <class>entity.Hobby</class>
+        <class>entity.Company</class>
+        <class>entity.Phone</class>
+        <class>entity.Address</class>
+        <class>entity.CityInfo</class>
+        <class>entity.InfoEntity</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ca2?zeroDateTimeBehavior=convertToNull"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.password" value="aergvOCh2202"/>
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+        </properties>
+    </persistence-unit>
   
-    <persistence-unit name="CA2_Eske_JoniPU_Test" transaction-type="RESOURCE_LOCAL">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>entity.Person</class>
-    <class>entity.Hobby</class>
-    <class>entity.Company</class>
-    <class>entity.Phone</class>
-    <class>entity.Address</class>
-    <class>entity.CityInfo</class>
-    <class>entity.InfoEntity</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ca2test?zeroDateTimeBehavior=convertToNull?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="password"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="pu_OPENSHIFT" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <non-jta-data-source>java:/comp/env/jdbc/MySQLDS</non-jta-data-source>
+        <class>entity.Person</class>
+        <class>entity.Hobby</class>
+        <class>entity.Company</class>
+        <class>entity.Phone</class>
+        <class>entity.Address</class>
+        <class>entity.CityInfo</class>
+        <class>entity.InfoEntity</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="eclipselink.canonicalmodel.subpackage" value="deploy"/>
+        </properties>
+    </persistence-unit>
 </persistence>

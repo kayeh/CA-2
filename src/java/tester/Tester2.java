@@ -35,6 +35,8 @@ public class Tester2 {
 
     public static void insert2Database(int dataAmount) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2_Eske_JoniPU");
+        //EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu_OPENSHIFT");
+        
         EntityManager em = emf.createEntityManager();
         for (int i = 0; i < dataAmount; i++) {
 
@@ -137,5 +139,6 @@ public class Tester2 {
 
     public static void createSchema() {
         Persistence.generateSchema("CA2_Eske_JoniPU", null);
+       // Persistence.generateSchema("pu_OPENSHIFT," null);
     }
 }

@@ -41,6 +41,7 @@ public class PersonResource {
     private UriInfo context;
 
     DataFacade facade = new DataFacade(Persistence.createEntityManagerFactory("CA2_Eske_JoniPU"));
+    //DataFacade facade = new DataFacade(Persistence.createEntityManagerFactory("pu_OPENSHIFT"));
 
     /**
      * Creates a new instance of person
