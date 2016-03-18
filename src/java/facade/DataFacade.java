@@ -1,5 +1,6 @@
 package facade;
 
+import dataGenerator.DataInsertion;
 import entity.Address;
 import entity.CityInfo;
 import entity.Hobby;
@@ -12,7 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 
 public class DataFacade implements IDataFacade {
-
+    
     Person p = new Person();
     InfoEntity ie = new InfoEntity();
     Address a = new Address();
@@ -20,15 +21,15 @@ public class DataFacade implements IDataFacade {
     CityInfo ci = new CityInfo();
     Hobby h = new Hobby();
     EntityManagerFactory emf;
-
+    
     public DataFacade(EntityManagerFactory emf) {
         this.emf = emf;
     }
-
+    
     EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-
+    
     public List<CityInfo> getAllZips() {
         EntityManager em = getEntityManager();
         try {
@@ -48,7 +49,7 @@ public class DataFacade implements IDataFacade {
             em.close();
         }
     }
-
+    
     @Override
     public Person getPerson(long id) {
         EntityManager em = getEntityManager();
@@ -58,7 +59,7 @@ public class DataFacade implements IDataFacade {
         } finally {
             em.close();
         }
-
+        
     }
 
     // select p, a, c from Person p join fetch p.address a join fetch a.cityInfo c
@@ -71,7 +72,7 @@ public class DataFacade implements IDataFacade {
             em.close();
         }
     }
-
+    
     @Override
     public List<Person> getPersonsByZip(int zipCode) {
         EntityManager em = getEntityManager();
@@ -80,15 +81,15 @@ public class DataFacade implements IDataFacade {
         } finally {
             em.close();
         }
-
+        
     }
-
+    
     @Override
     public void createPerson(String fields) {
-
+        
         String inputs[] = fields.split(",");
         EntityManager em = getEntityManager();
-
+        
         p.setFirstName(inputs[0]);
         p.setLastName(inputs[1]);
         p.setEmail(inputs[2]);
@@ -100,23 +101,31 @@ public class DataFacade implements IDataFacade {
         ci.setZipCode(inputs[8]);
         h.setName(inputs[9]);
         h.setDescription(inputs[10]);
-
+        
         p.setAddress(a);
         a.setCityInfo(ci);
         p.addHobby(h);
         p.addPhone(ph);
         ph.setInfoEntity(p);
-
+        
         try {
             em.getTransaction().begin();
             em.persist(p);
-
+            
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
-
+            
         }
-
+        
+    }
+    
+    public void fillDatabase(int amount) {
+        DataInsertion.insert2Database(amount);
     }
 
+    public void generateSchema() {
+        DataInsertion.createSchema();
+    }
+    
 }

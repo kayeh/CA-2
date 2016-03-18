@@ -1,4 +1,4 @@
-package tester;
+package dataGenerator;
 
 import static dataGenerator.DataGenerator.makeAddInfo;
 import static dataGenerator.DataGenerator.makeCompany;
@@ -18,12 +18,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class Tester2 {
-public static void main(String[] args) {
-        createSchema();
-        insert2Database(50);
-        //printTestData(1);
-    }
+public class DataInsertion {
+
     static String[] fullname;
     static String[] phone;
     static String[] hobby;
@@ -31,12 +27,10 @@ public static void main(String[] args) {
     static Random random = new Random();
     static int randomNumber = random.nextInt(6) + 1;
 
-    
-
     public static void insert2Database(int dataAmount) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2_Eske_JoniPU");
         //EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu_OPENSHIFT");
-        
+
         EntityManager em = emf.createEntityManager();
         for (int i = 0; i < dataAmount; i++) {
 
@@ -113,32 +107,8 @@ public static void main(String[] args) {
         }
     }
 
-    public static void printTestData(int n) {
-
-        for (int i = 1; i < n + 1; i++) {
-            System.out.println("Person: " + i);
-            fullname = makePerson().split(",");
-            System.out.println(fullname[0] + " " + fullname[1]);
-
-            System.out.println(makeAddInfo());
-            System.out.println(makeStreet());
-
-            phone = makePhone().split(",");
-            System.out.println(phone[0] + " " + phone[1]);
-
-            hobby = makeHobby().split("-");
-            System.out.println(hobby[0] + " " + hobby[1]);
-            System.out.println("\n" + "\n");
-
-            company = makeCompany().split("¨");
-            System.out.println(company[0] + " " + company[1] + " " + company[2] + " " + company[3] + company[4]);
-
-        }
-
-    }
-
     public static void createSchema() {
         Persistence.generateSchema("CA2_Eske_JoniPU", null);
-       // Persistence.generateSchema("pu_OPENSHIFT," null);
+        // Persistence.generateSchema("pu_OPENSHIFT," null);
     }
 }

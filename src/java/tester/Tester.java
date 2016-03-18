@@ -5,10 +5,10 @@
 // */
 //package tester;
 
-import static DataGenerator.DataGenerator.makeAddInfo;
-import static DataGenerator.DataGenerator.makePerson;
-import static DataGenerator.DataGenerator.makePhone;
-import static DataGenerator.DataGenerator.makeStreet;
+import static dataGenerator.DataGenerator.makeAddInfo;
+import static dataGenerator.DataGenerator.makePerson;
+import static dataGenerator.DataGenerator.makePhone;
+import static dataGenerator.DataGenerator.makeStreet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import entity.Address;

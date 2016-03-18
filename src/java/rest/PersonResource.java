@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
-import entity.CityInfo;
 import entity.Hobby;
 import entity.Person;
 import entity.Phone;
@@ -28,22 +23,17 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
-/**
- * REST Web Service
- *
- * @author Eske Wolff
- */
 @Path("person")
 public class PersonResource {
-
+    
     Gson gson;
-
+    
     @Context
     private UriInfo context;
-
+    
     DataFacade facade = new DataFacade(Persistence.createEntityManagerFactory("CA2_Eske_JoniPU"));
-    //DataFacade facade = new DataFacade(Persistence.createEntityManagerFactory("pu_OPENSHIFT"));
 
+    //DataFacade facade = new DataFacade(Persistence.createEntityManagerFactory("pu_OPENSHIFT"));
     /**
      * Creates a new instance of person
      */
@@ -59,17 +49,17 @@ public class PersonResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getJson() {
-        //TODO return proper representation object
+        
         throw new UnsupportedOperationException();
     }
-
+    
     @GET
     @Path("/complete")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersons() {
         List<Person> persons = facade.getAllPersons();
         JsonArray json = new JsonArray();
-
+        
         for (Person person : persons) {
             JsonObject obj = new JsonObject();
             JsonArray hobbies = new JsonArray();
@@ -82,7 +72,7 @@ public class PersonResource {
                 Phone ph = person.getPhone().get(i);
                 phones.add(new JsonPrimitive(ph.getNumber()));
             }
-
+            
             obj.addProperty("firstName", person.getFirstName());
             obj.addProperty("lastName", person.getLastName());
             obj.addProperty("street", person.getAddress().toString());
@@ -92,54 +82,92 @@ public class PersonResource {
         }
         return gson.toJson(json);
     }
-
+    
     @GET
     @Path("/complete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonById(@PathParam("id") int id) {
         Person person = facade.getPerson(id);
         JsonArray json = new JsonArray();
-
+        
         JsonObject obj = new JsonObject();
         obj.addProperty("firstName", person.getFirstName());
         obj.addProperty("lastName", person.getLastName());
         json.add(obj);
-
-        return gson.toJson(json);
-
-    }
-
-    @POST
-    @Path("/{fields}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String createPerson(@PathParam("fields") String fields) {
-        JsonArray json = new JsonArray();
-        String[] fieldSplitt = fields.split(",");
-        JsonObject obj = new JsonObject();
-        obj.addProperty("firstName", fieldSplitt[0]);
-        obj.addProperty("lastName", fieldSplitt[1]);
-        obj.addProperty("email", fieldSplitt[2]);
-        obj.addProperty("adressstreet", fieldSplitt[3]);
-        obj.addProperty("adressAddInfo", fieldSplitt[4]);
-        obj.addProperty("phoneNo", fieldSplitt[5]);
-        obj.addProperty("phoneDesc", fieldSplitt[6]);
-        obj.addProperty("city", fieldSplitt[7]);
-        obj.addProperty("zipcode", fieldSplitt[8]);
-        obj.addProperty("hobbyName", fieldSplitt[9]);
-        obj.addProperty("hobbydesc", fieldSplitt[10]);
-
-        json.add(obj);
-        facade.createPerson(fields);
         
         return gson.toJson(json);
+        
+    }
+    
+    @POST
+    //@Path("/{fields}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void createPerson(String jsonObj) {
+      //  JsonArray json = new JsonArray();
+        
+        
+        
+        JsonObject personInJson = new JsonParser().parse(jsonObj).getAsJsonObject();
+        String personFirstName = personInJson.get("firstName").getAsString();
+        String personLastName = personInJson.get("lastName").getAsString();
+        String personEmail = personInJson.get("email").getAsString();
+        String personStreet = personInJson.get("addressStreet").getAsString();
+        String personAddressAddInfo = personInJson.get("addressAddInfo").getAsString();
+        String personPhoneNo = personInJson.get("phoneNo").getAsString();
+        String personPhoneDesc = personInJson.get("phoneDesc").getAsString();
+        String personCity = personInJson.get("city").getAsString();
+        String personZipcode = personInJson.get("zipCode").getAsString();
+        String personHobbyName = personInJson.get("hobbyName").getAsString();
+        String personHobbyDesc = personInJson.get("hobbyDesc").getAsString();
+        
+        
+        String fields = personFirstName + "," + personLastName + "," + personEmail + "," + personStreet + "," + personAddressAddInfo + "," + personPhoneNo
+                + "," + personPhoneDesc + "," + personCity + "," + personZipcode + "," + personHobbyName + "," + personHobbyDesc;
+
+        facade.createPerson(fields);
+
+//        obj.addProperty("firstName", fieldSplitt[0]);
+//        obj.addProperty("lastName", fieldSplitt[1]);
+//        obj.addProperty("email", fieldSplitt[2]);
+//        obj.addProperty("addressStreet", fieldSplitt[3]);
+//        obj.addProperty("addressAddInfo", fieldSplitt[4]);
+//        obj.addProperty("phoneNo", fieldSplitt[5]);
+//        obj.addProperty("phoneDesc", fieldSplitt[6]);
+//        obj.addProperty("city", fieldSplitt[7]);
+//        obj.addProperty("zipcode", fieldSplitt[8]);
+//        obj.addProperty("hobbyName", fieldSplitt[9]);
+//        obj.addProperty("hobbydesc", fieldSplitt[10]);
+//        
+       // json.add(obj);
+        
+       // return null; //gson.toJson(json);
         //return fields;
 
     }
 
+    @POST
+    @Path("/generate/{number}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void GeneratePersons(@PathParam("number") int number) {
+        
+        facade.fillDatabase(number);
+        
+    }
+     @POST
+    @Path("/generate/schema")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void GenerateSchema() {
+        
+        facade.generateSchema();
+        
+    }
+    
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void putJson(String content) {
     }
-
+    
 }
