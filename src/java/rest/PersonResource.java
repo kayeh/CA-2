@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import entity.CityInfo;
 import entity.Hobby;
 import entity.Person;
 import entity.Phone;
@@ -91,6 +92,7 @@ public class PersonResource {
         }
         return gson.toJson(json);
     }
+
 
     @GET
     @Path("/complete/{id}")

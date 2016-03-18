@@ -7,12 +7,14 @@ package entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Eske Wolff
  */
 @Entity
+@XmlRootElement
 public class Company extends InfoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

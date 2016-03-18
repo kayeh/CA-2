@@ -1,5 +1,5 @@
 var getAll = function () {
-//get all persons in database
+
     $(document).ready(function () {
         $("#getPersons").click(function () {
             $.ajax({
@@ -28,21 +28,23 @@ var getAll = function () {
         });
 
     });
-//clear table with list
+
     $(document).ready(function () {
         $("#clear").click(function () {
             $('#thead').html("");
             $('#tbody').html("");
         });
+
     });
-//clear selection
+    
     $(document).ready(function () {
-        $("#clearSelection").click(function () {
+        $('#clearSelection').on("click", function (event) {
             $('.radio-button').prop('checked', false);
+            
         });
 
     });
-//find persons selected by hobbys
+
     $(document).ready(function () {
         $("#getPersonByHobby").click(function () {
             $.ajax({
@@ -87,62 +89,7 @@ var getAll = function () {
         });
 
     });
-//find amount of selected hobbys
-    $(document).ready(function () {
-        $("#getHowManyByHobby").click(function () {
-            $.ajax({
-                url: "http://localhost:8080/CA2_Eske_Joni/api/person/complete",
-                type: "GET",
-                dataType: "JSON",
-                error: function (errorThrown) {
-
-                    console.log(errorThrown);
-                }
-            }).then(function (data) {
-                //alert("hej fra then");
-                console.log(data);
-                $('#thead').html("");
-                $('#tbody').html("");
-                var row;
-                var chosenHobby;
-                var number = 0;
-
-//                if (document.getElementByName('hobby').checked) {
-//                    chosenHobby = document.getElementByName('hobby').value;
-//                    console.log("hobby "+ chosenHobby)
-//                }
-                chosenHobby = document.querySelector('input[name="hobby"]:checked').value;
-
-                row = "<tr> " + "<td>" + chosenHobby + "</td>" + "</tr>";
-                $('#thead').append(row);
-                for (var i = 0; i < data.length; i++) {
-                    console.log(data[i].hobbies[i])
-                    for (var j = 0; j < data[i].hobbies.length; j++) {
-                        if (data[i].hobbies[j] === chosenHobby) {
-
-                            number++;
-
-                        }
-
-                    }
-
-                }
-                row = "<tr> <td>" + number + "</td>" + "</tr>";
-                $('#tbody').append(row);
-
-
-            });
-        });
-
-    });
-
-
 
 };
 
 getAll();
-
-
-
-
-

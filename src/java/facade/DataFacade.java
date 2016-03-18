@@ -29,6 +29,26 @@ public class DataFacade implements IDataFacade {
         return emf.createEntityManager();
     }
 
+    public List<CityInfo> getAllZips() {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery("SELECT ci FROM CityInfo ci").getResultList();
+        } finally {
+            em.close();
+        }
+    }
+//
+
+    public CityInfo getCityByZip(String zipcode) {
+        EntityManager em = getEntityManager();
+        try {
+            CityInfo ci = em.find(CityInfo.class, zipcode);
+            return ci;
+        } finally {
+            em.close();
+        }
+    }
+
     @Override
     public Person getPerson(long id) {
         EntityManager em = getEntityManager();
@@ -85,7 +105,7 @@ public class DataFacade implements IDataFacade {
         p.addHobby(h);
         p.addPhone(ph);
         ph.setInfoEntity(p);
-        
+
         try {
             em.getTransaction().begin();
             em.persist(p);

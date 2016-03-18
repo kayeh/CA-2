@@ -11,12 +11,15 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Eske Wolff
  */
 @Entity
+@XmlRootElement
 public class Person extends InfoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +46,7 @@ public class Person extends InfoEntity implements Serializable {
         this.lastName = lastName;
     }
 
+    @XmlTransient
     public List<Hobby> getHobbies() {
         return hobbies;
     }
