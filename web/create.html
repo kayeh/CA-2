@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <link href="styling/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
+        <link href="styling/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+        <link href="styling/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="styling/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <nav class="navbar navbar-static-top  navbar-default" role="navigation" >
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"  >
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand"><img src="images/joni-top.png"  style="margin-top: -15px;height: 50px;width:50px;"></a>
+                    <a class="navbar-brand"><img src="images/eske-top.png"  style="margin-top: -15px;height: 50px;width:50px;"></a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a class="active" id="home" href="index.html">Home</a></li>
+                        <li ><a  id="person" href="person.html" ng-hide="isAdmin" >Persons DB</a></li>
+                        <li ><a  id="person" href="create.html" ng-hide="isAdmin" >Create Person</a></li>
+
+                    </ul>
+
+
+                </div>
+            </div>
+        </nav>
+        <!-- Model -->
+        <form action="">
+            <table>
+                <tr>
+
+                    <td>
+                        <h1 id="section1">Section Create</h1>
+                        Person      - FirstName     <input class="form-control ng-pristine ng-untouched ng-valid" style="color: gray" type="text" name="firstName"><br>        
+                        Person      - LastName:     <input class="form-control ng-pristine ng-untouched ng-valid" style="color: gray" type="text" name="lastName"><br>        
+                        Address     - Street:       <input class="form-control ng-pristine ng-untouched ng-valid" style="color: gray" type="text" name="street"><br>        
+                        Address     - AddInfo       <input class="form-control ng-pristine ng-untouched ng-valid" style="color: gray" type="text" name="addressAddInfo"><br>        
+                        Phones      - Number        <input class="form-control ng-pristine ng-untouched ng-valid" style="color: gray" type="text" name="phoneNumber"><br>        
+                        Phones      - Description  <input class="form-control ng-pristine ng-untouched ng-valid" style="color: gray" type="text" name="phoneDes"><br>        
+                        Hobbies     - Name          <input class="form-control ng-pristine ng-untouched ng-valid" style="color: gray" type="text" name="hobbiesName"><br>        
+                        Hobbies     - Description<input class="form-control ng-pristine ng-untouched ng-valid" style="color: gray" type="text" name="hobbiesDes"><br>        
+                        CityInfo    - ZipCode<input class="form-control ng-pristine ng-untouched ng-valid" style="color: gray" type="text" name="zipCode"><br>        
+                        CityInfo    - City <input class="form-control ng-pristine ng-untouched ng-valid" style="color: gray" type="text" name="city"><br>        
+                        <input class="btn btn-primary"  type="submit" value="Submit">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    
+
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

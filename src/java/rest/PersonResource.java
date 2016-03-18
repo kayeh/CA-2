@@ -93,7 +93,6 @@ public class PersonResource {
         return gson.toJson(json);
     }
 
-
     @GET
     @Path("/complete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -107,20 +106,34 @@ public class PersonResource {
         json.add(obj);
 
         return gson.toJson(json);
-        //  throw new UnsupportedOperationException();
+
     }
 
-    /**
-     * PUT method for updating or creating an instance of PersonResource
-     *
-     * @param content representation for the resource
-     */
     @POST
     @Path("/{fields}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String CreatePerson(@PathParam("fields") String fields) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String createPerson(@PathParam("fields") String fields) {
+        JsonArray json = new JsonArray();
+        String[] fieldSplitt = fields.split(",");
+        JsonObject obj = new JsonObject();
+        obj.addProperty("firstName", fieldSplitt[0]);
+        obj.addProperty("lastName", fieldSplitt[1]);
+        obj.addProperty("email", fieldSplitt[2]);
+        obj.addProperty("adressstreet", fieldSplitt[3]);
+        obj.addProperty("adressAddInfo", fieldSplitt[4]);
+        obj.addProperty("phoneNo", fieldSplitt[5]);
+        obj.addProperty("phoneDesc", fieldSplitt[6]);
+        obj.addProperty("city", fieldSplitt[7]);
+        obj.addProperty("zipcode", fieldSplitt[8]);
+        obj.addProperty("hobbyName", fieldSplitt[9]);
+        obj.addProperty("hobbydesc", fieldSplitt[10]);
+
+        json.add(obj);
         facade.createPerson(fields);
-        return fields;
+        
+        return gson.toJson(json);
+        //return fields;
 
     }
 
@@ -129,10 +142,4 @@ public class PersonResource {
     public void putJson(String content) {
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getPersonById() {
-//        //TODO return proper representation object
-//        throw new UnsupportedOperationException();
-//    }
 }
