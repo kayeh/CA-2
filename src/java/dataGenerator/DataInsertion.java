@@ -6,12 +6,14 @@ import static dataGenerator.DataGenerator.makeHobby;
 import static dataGenerator.DataGenerator.makePerson;
 import static dataGenerator.DataGenerator.makePhone;
 import static dataGenerator.DataGenerator.makeStreet;
+
 import entity.Address;
 import entity.CityInfo;
 import entity.Company;
 import entity.Hobby;
 import entity.InfoEntity;
 import entity.Person;
+import deploy.*;
 import entity.Phone;
 import java.util.Random;
 import javax.persistence.EntityManager;
@@ -28,8 +30,9 @@ public class DataInsertion {
     static int randomNumber = random.nextInt(6) + 1;
 
     public static void insert2Database(int dataAmount) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CA2_Eske_JoniPU");
-        //EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu_OPENSHIFT");
+        
+       // EntityManagerFactory emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
+       EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu_OPENSHIFT");
 
         EntityManager em = emf.createEntityManager();
         for (int i = 0; i < dataAmount; i++) {
@@ -108,7 +111,7 @@ public class DataInsertion {
     }
 
     public static void createSchema() {
-        Persistence.generateSchema("CA2_Eske_JoniPU", null);
-        // Persistence.generateSchema("pu_OPENSHIFT," null);
+        //Persistence.generateSchema("CA2_Eske_JoniPU", null);
+         Persistence.generateSchema("pu_OPENSHIFT", null);
     }
 }

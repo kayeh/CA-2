@@ -3,7 +3,7 @@ var getAll = function () {
     $(document).ready(function () {
         $("#getPersons").click(function () {
             $.ajax({
-                url: "http://localhost:8080/CA2_Eske_Joni/api/person/complete",
+                url: "https://ca2-cphjs226.rhcloud.com/ca2/api/person/complete",
                 type: "GET",
                 dataType: "JSON",
                 error: function (errorThrown) {
@@ -48,7 +48,7 @@ var getAll = function () {
     $(document).ready(function () {
         $("#getPersonByHobby").click(function () {
             $.ajax({
-                url: "http://localhost:8080/CA2_Eske_Joni/api/person/complete",
+                url: "https://ca2-cphjs226.rhcloud.com/ca2/api/person/complete",
                 type: "GET",
                 dataType: "JSON",
                 error: function (errorThrown) {
@@ -94,7 +94,7 @@ var getAll = function () {
     $(document).ready(function () {
         $("#getHowManyByHobby").click(function () {
             $.ajax({
-                url: "http://localhost:8080/CA2_Eske_Joni/api/person/complete",
+                url: "https://ca2-cphjs226.rhcloud.com/ca2/api/person/complete",
                 type: "GET",
                 dataType: "JSON",
                 error: function (errorThrown) {

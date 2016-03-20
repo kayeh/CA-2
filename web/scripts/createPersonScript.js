@@ -33,9 +33,9 @@ var getAll = function () {
                 dataType: "json",
                 contentType: "application/json; charset=utf-8"
             }).done(function (doneData) {
-                alert("success");
+//                alert("success");
             }).fail(function (error) {
-                alert("failed");
+//                alert("failed");
             });
 
         });
